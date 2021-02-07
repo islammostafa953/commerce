@@ -1,0 +1,340 @@
+body{
+
+  font-size:16px;
+  background-color: #efefef;
+}
+
+
+/*  start login form */
+
+.log
+{
+width:400px;
+margin:100px auto; 
+
+}
+
+.log h4
+{
+    color: rgb(20, 130, 220);
+
+}
+.log input
+{
+margin-bottom: 10px;
+
+
+}
+
+.log .form-control
+{
+
+    background-color: #ccc;
+}
+
+.log .btn
+
+{
+  width: 100%;
+  background-color: rgb(29, 43, 230);
+}
+
+.dddd
+{
+
+  background-color: blue;;
+}
+/* end login form*/
+
+
+
+/*   start bootsrap*/
+
+.navbar
+{
+  padding: 0;
+ margin-bottom:0px;
+  background-color: rgba(7, 1, 1, 0.925);
+  
+}
+
+
+
+
+a:-webkit-any-link
+{
+ margin: 8px 4px;
+} 
+.navbar-brand
+{
+font-size: 1em;
+color: azure;
+}
+
+
+.dropdown-menu
+{
+
+  background-color: rgba(5, 1, 1, 0.712);
+  color: rgb(255, 240, 244);
+}
+
+.dropdown-item
+{
+  color: azure;
+  padding: 0px;
+}
+
+
+.dropdown-menu > li > a
+ {
+  color: azure;
+  padding: 5px;
+  
+  
+}
+
+
+.dropdown-menu  a:hover
+ {
+  background-color: azure;
+  color: rgb(179, 34, 34);
+  padding: 4px;
+  text-decoration: none;
+  
+}
+
+
+
+/* end bootstrap */
+
+
+/* start dashboard home*/
+.home-stats .stat{
+ text-align: center;
+  background-color: #ccc;
+  border: 1px solid #aaa;
+  padding: 5px;
+  font-size: 16px;
+  color: #eee;
+}
+.home-stats a{
+  color: #eee;
+  text-decoration: none;
+}
+
+.home-stats .stat span{
+  display: block;
+  font-size: 50px;
+  
+}
+.home-stats .st-members {
+  background-color: rgb(57, 57, 212);
+  border-radius: 15px;
+
+
+}
+.home-stats .st-pending {
+  background-color: rgb(173, 44, 177);
+  border-radius: 15px;
+}
+.home-stats .st-items {
+  background-color: rgb(44, 177, 66);
+  border-radius: 15px;
+}
+.home-stats .st-comments {
+  background-color: rgb(177, 44, 44);
+  border-radius: 15px;
+}
+.latest{
+  margin-top: 20px;
+}
+
+.latest   .panel-heading{
+background-color: #eee;
+padding: 2px;
+ 
+}
+
+.panel1 
+{
+  padding: 50px;
+}
+
+.latest-users{
+
+padding: 0px;
+padding-left: 5px;
+margin: 0px;
+
+}
+.latest-users  li { 
+
+  padding:5px 0px 5px 5px;  
+  margin-top: 0px;
+  margin-bottom: 5px;
+  overflow: hidden;
+  }
+
+  
+  .latest-users  li:nth-child(odd)
+  {
+    background-color: darkgrey;
+  }
+  .latest-users .btn-info,
+  .latest-users  .btn-success {
+  
+  padding: 0px;
+  
+  }
+  .latest-users .btn-info
+  { margin-right: 5px;
+  color: #fff;
+background-color: deeppink;
+text-align: center;
+ padding-right:4px;
+
+}
+  
+  
+/* end dashboard home*/
+/*  start  members -> edite page*/
+
+h1
+{
+   font-size: 50px;
+   margin: 40px 0;
+}
+
+/* end member -> edite page */
+
+
+
+/* main table */
+
+
+
+.main-table tr:first-child td
+{
+background-color:#222;
+color: #eee;
+}
+
+.main-table tr{
+  text-align:center;
+}
+
+
+
+/*  start categories page */
+
+.div-vis {
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.categories .cat h3
+{ 
+  
+margin: 0px;
+padding: 0px;
+padding-bottom: 5px;
+padding-left: 5px;
+}
+
+.categories .cat span
+{ 
+margin-left: 5px;
+}
+
+.categories .cat 
+{ 
+  
+position: relative;
+overflow: hidden;
+
+}
+.categories  .panel-heading
+{
+  background-color: rgb(194, 194, 194);
+}
+
+.categories .order a
+{
+text-decoration: none;
+color: #555;
+right: 5px;
+}
+
+.categories .order .active
+{
+color: rgb(190, 20, 20);
+font-weight: bold;
+
+}
+
+.categories .cat:hover .hidden-buttons
+{ 
+right: 10px;  
+
+}
+
+
+.categories .cat:hover 
+{ 
+
+background-color: #ccc;
+
+
+}
+.categories .cat .hidden-buttons
+{ 
+-webkit-transition :all  .5s  ease-in-out;
+-moz-transition :all  .5s  ease-in-out;
+transition :all  .5s  ease-in-out;
+
+top: 10px;  
+right: -200px;  
+position:absolute;
+
+}
+
+
+.categories .cat .hidden-buttons a
+{ 
+margin-right: 5px;
+}
+
+.categories .cat .Visibility
+{
+  background-color: rgb(146, 17, 17);
+  color: #eee;
+  border-radius: 10px; 
+  padding: 2px;
+  padding-right: 5px;
+  padding-left: 5px;
+  
+}
+
+.categories .cat .Commenting
+{
+  background-color: rgb(112, 146, 17);
+  color: #eee;
+  border-radius: 7px;
+  padding: 2px;
+  padding-right: 5px;
+  padding-left: 5px;
+}
+
+.categories .cat .ads
+{
+  background-color: rgb(26, 17, 146);
+  color: #eee;
+  border-radius: 10px;
+  padding: 2px;
+  padding-right: 5px;
+  padding-left: 5px;
+  align:center;
+}
+
+/*  end categories page */
