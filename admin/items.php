@@ -565,7 +565,7 @@ if (isset($_SESSION['Username'])){
               $stmt->bindParam(":Epass" , $itemid );
               $stmt->execute();
               $theMsg= "<div class='alert alert-danger'>". $stmt->rowCount()   .' record Delete '. "</div>"; 
-              redictHome($theMsg,'items.php',3);
+              redictHome($theMsg,'back',3);
             }
 
        
