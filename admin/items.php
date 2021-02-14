@@ -546,7 +546,31 @@ if (isset($_SESSION['Username'])){
 
         }
         elseif ($do == 'Delete'){
+          echo "<h1 class ='text-center'> Delete Category</h1> ";
+          echo "<div class='container'>";
+           
+           $itemid=isset($_GET['itemid']) && is_numeric($_GET['itemid']) ? intval ($_GET['itemid']) : 0;
+       
+         
+            $stmt = $con->prepare(" SELECT * FROM items WHERE item_ID  = ? LIMIT 1");
+            
+            $stmt->execute(array($itemid)); 
+            
+           // $chick = chickUsers('	ID' , 'categories' , $catId);
+            $count = $stmt->rowCount();
+            
+            if ($count > 0) {
 
+              $stmt=$con->prepare("DELETE FROM items WHERE 	item_ID = :Epass");
+              $stmt->bindParam(":Epass" , $itemid );
+              $stmt->execute();
+              $theMsg= "<div class='alert alert-danger'>". $stmt->rowCount()   .' record Delete '. "</div>"; 
+              redictHome($theMsg,'items.php',3);
+            }
+
+       
+
+    
             
         }
         elseif ($do == 'Approve')
