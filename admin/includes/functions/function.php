@@ -107,7 +107,7 @@ function getLatest( $column ,$table, $order , $limit = 3 )
 {
   global $con;
 
-  $getstat = $con->prepare("SELECT  $column FROM $table ORDER BY  $order DESC LIMIT $limit ");
+  $getstat = $con->prepare("SELECT  $column FROM $table WHERE GroupID != 1 ORDER BY  $order DESC LIMIT $limit ");
 
   $getstat->execute();
 

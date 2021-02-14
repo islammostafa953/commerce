@@ -44,8 +44,8 @@ if (isset($_SESSION['Username'])){
                 Categories 
                 <div class="order pull-right">
                   Ordering:
-                  <a  class =" <?php if ($sort =='ASC' ) {echo 'active';} ?>" href="?sort=ASC"> Asc</a> |
-                  <a  class =" <?php if ($sort =='DESC' ) {echo 'active';} ?>" href="?sort=DESC">Desc </a>
+                  [<a  class =" <?php if ($sort =='ASC' ) {echo 'active';} ?>" href="?sort=ASC"> Asc</a> |
+                  <a  class =" <?php if ($sort =='DESC' ) {echo 'active';} ?>" href="?sort=DESC">Desc </a>]
                 </div>  
               </div>
 
@@ -56,8 +56,8 @@ if (isset($_SESSION['Username'])){
                     {
                       echo "<div class='cat'>";
                         echo '<div class="hidden-buttons">';
-                          echo '<a href="#" class=" btn btn-xs btn-primary "> <i class="fa fa-edit"></i> Edit</a>';
-                          echo '<a href="#" class=" btn btn-xs btn-danger ">  <i class="fa fa-close"></i> Delete</a>';
+                          echo '<a href="categories.php?do=Edit&catId='. $cat['ID'] .'"class=" btn btn-xs btn-primary "> <i class="fa fa-edit"></i> Edit</a>';
+                          echo '<a href="categories.php?do=Delete&catId='.$cat['ID'].'" class=" btn btn-xs btn-danger confirm">  <i class="fa fa-close"></i> Delete</a>';
                         echo '</div>';
                         echo '<h3>' . $cat['Name']  .'</h3>';
                         echo '<p>' ; if ($cat['Descriptions'] == "") { echo 'this is empty categories';}else {echo $cat['Descriptions'];}   ; echo '</p>';
@@ -74,6 +74,8 @@ if (isset($_SESSION['Username'])){
                 ?>
               </div>
             </div>
+            <a href="categories.php?do=Add" class="btn btn-primary"><i class="fa fa-plus"></i>  Add New Member</a>
+
           </div>
         
 
@@ -86,7 +88,7 @@ if (isset($_SESSION['Username'])){
        ?>
          
 
-       <h1 class ="text-center"> Add Categories</h1>
+       <h1 class ="text-center"> Add Category</h1>
        <div class="container">
         <form class="form-horizontal" action="?do=Insert" method="POST">
         <!-- start name --> 
@@ -243,7 +245,7 @@ if (isset($_SESSION['Username'])){
             
             {  
               $theMsg ='<div class="alert alert-danger">sorry you can access directly</div>';
-              redictHome( $theMsg ,'back');
+              redictHome( $theMsg );
                 
             }
 
@@ -255,14 +257,193 @@ if (isset($_SESSION['Username'])){
 
         elseif ($do == 'Edit'){
 
+          $catid=isset($_GET['catId']) && is_numeric($_GET['catId']) ? intval ($_GET['catId']) : 0;
+       
+         
+          $stmt = $con->prepare(" SELECT * FROM categories WHERE ID  = ? ");
+          $stmt->execute(array($catid)); 
+          $cat=$stmt->fetch();
+          $count = $stmt->rowCount();
+          if ($count > 0) {
+         
+        
+        // Edite Page?>
+         
+           <h1 class ="text-center"> Edit category</h1>
+           <div class="container">
+        <form class="form-horizontal" action="?do=Update" method="POST">
+        <!-- start name --> 
+        <label class= "col-sm-2 control-label">Name</label>
+        <div class="form-group form-group-lg">
+          
+            <div class="col-sm-10 col-md-4 ">
+              <input type="text" name ="name" class="form-control"  required="required" value="<?php echo $cat['Name'] ;?>">
+              <input type="hidden" name="catId" value="<?php echo $catid ;?>" >
+
+            </div>
+          </div>  
+        <!-- end name -->
+      
+        <!-- start decription  --> 
+        <div class="form-group form-group-lg">
+          <label class= "col-sm-2 control-label">Decription</label>
+            <div class="col-sm-10 col-md-4 ">
+              <input type="text" name ="decription" class="form-control" value="<?php echo $cat['Descriptions'] ;?>" >
+            </div>
+        </div>
+        <!-- end decription -->
+
+        <!-- start ordering  --> 
+        <div class="form-group form-group-lg">
+          <label class= "col-sm-2 control-label">Ordering</label>
+            <div class="col-sm-10 col-md-4 ">
+              <input type="number" name ="ordering" class="form-control"  value="<?php echo $cat['Ordering'] ;?>" >
+            </div>
+          </div>
+        <!-- end ordering email -->
+        
+        <!-- start Visible --> 
+        <div class="form-group form-group-lg div-vis">
+          <label class= "col-sm-2 control-label">Visible</label>
+            <div class="col-sm-10 col-md-4 ">
+              <div>
+                <input  id="vis-yes" type="radio" name ="visible"  value="0"   <?php if ($cat['Visibility'] == 0 ) { echo 'checked'; }?>>
+                <lable id="vis-yes">Yes</lable>
+              </div>
+              <div>
+                <input  id="vis-no" type="radio" name ="visible"  value="1"  <?php if ($cat['Visibility'] == 1 ) { echo 'checked'; }?>>
+                <lable id="vis-no">No</lable>
+              </div>
+            </div>
+        </div>
+        <!-- end Visible -->
+       
+        <!-- start Commenting --> 
+        <div class="form-group form-group-lg div-vis">
+          <label class= "col-sm-2 control-label">Allow Commenting</label>
+            <div class="col-sm-10 col-md-4 ">
+              <div>
+                <input  id="com-yes" type="radio" name ="commenting"  value="0" <?php if ($cat['Commenting'] == 0 ) { echo 'checked'; }?>>
+                <lable id="com-yes">Yes</lable>
+              </div>
+              <div>
+                <input  id="com-no" type="radio"  name ="commenting"  value="1" <?php if ($cat['Commenting'] == 1 ) { echo 'checked'; }?> >
+                <lable id="com-no">No</lable>
+              </div>
+            </div>
+        </div>
+        <!-- end Commenting -->
+
+        <!-- start ads --> 
+        <div class="form-group form-group-lg div-vis">
+          <label class= "col-sm-2 control-label">Allow Ads</label>
+            <div class="col-sm-10 col-md-4 ">
+              <div>
+                <input  id="ads-yes" type="radio" name ="ads"  value="0" <?php if ($cat['Ads'] == 0 ) { echo 'checked'; }?>>
+                <lable id="ads-yes">Yes</lable>
+              </div>
+              <div>
+                <input  id="ads-no" type="radio" name ="ads"  value="1" <?php if ($cat['Ads'] == 1 ) { echo 'checked'; }?> >
+                <lable id="ads-no">No</lable>
+              </div>
+            </div>
+        </div>
+        <!-- end ads -->
+
+        <!-- start button --> 
+        <div class="form-group form-group-lg">
+            <div class="col-sm-offset-2  col-md-10 ">
+              <input type="submit" value ="Add category" class="btn btn-primary btn-lg" />
+            </div>
+        </div>
+        <!-- end button  -->
+        </form> 
+    </div>
+              
+
+
+      <?php 
+      
+       } 
+      else
+      {
+        echo "<div class='container'>";
+        $theMsg = 'there is not\' found ID' ;
+        redictHome( $theMsg );
+
+        echo "</div>";
+      }
+      
+
         }
         elseif ($do == 'Update'){
+
+          echo "<h1 class ='text-center'> Update Member</h1> ";
+          echo "<div class='container'>";
+        
+           if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+              
+                  $id    = $_POST['catId'];
+                  $name  = $_POST['name'];
+                  $desc = $_POST['decription'];
+                  $order  = abs($_POST['ordering']);
+                  $visbil  = $_POST['visible'];
+                  $comm  = $_POST['commenting'];
+                  $ads  = $_POST['ads'];
+                 
+                  $chick = chickUsers("Name" , "categories" , $name);
+
+                  if ($chick  == 1  ){
+                  $theMsg = '<div class="alert alert-danger">sorry cant access  this name is categor </div>';
+                  redictHome( $theMsg ,'back');
+
+                  }else{ 
+                
+                    $stmt = $con->prepare("UPDATE categories SET Name = ? , Descriptions = ? , Ordering = ? ,Visibility = ? , Commenting = ? , Ads = ?  WHERE  ID = ? ");
+                    $stmt ->execute(array($name,$desc,$order,$visbil,$comm,$ads,$id));   
+                    $theMsg =  "<div class='alert alert-success'>". $stmt->rowCount()   .' record upate '. "</div>"; 
+                    redictHome($theMsg,'back',3);
+                 }
+           } else
+           {
+            echo "<div class='container'>";
+            $theMsg = "<div class='alert alert-danger'>sorry you can access directly</div>";
+            redictHome( $theMsg );
+  
+            echo "</div>";
+             
+           }
+           echo "</div>";
 
 
         }
         elseif ($do == 'Delete'){
 
-            header('Location: index.php');
+          echo "<h1 class ='text-center'> Delete Category</h1> ";
+          echo "<div class='container'>";
+           
+           $catid=isset($_GET['catId']) && is_numeric($_GET['catId']) ? intval ($_GET['catId']) : 0;
+       
+         
+            $stmt = $con->prepare(" SELECT * FROM categories WHERE ID  = ? LIMIT 1");
+            
+            $stmt->execute(array($catid)); 
+            
+           // $chick = chickUsers('	ID' , 'categories' , $catId);
+            $count = $stmt->rowCount();
+            
+            if ($count > 0) {
+
+              $stmt=$con->prepare("DELETE FROM categories WHERE 	ID = :Epass");
+              $stmt->bindParam(":Epass" , $catid );
+              $stmt->execute();
+              $theMsg= "<div class='alert alert-danger'>". $stmt->rowCount()   .' record Delete '. "</div>"; 
+              redictHome($theMsg,'categories.php',3);
+            }
+
+       
+
+           // header('Location: index.php');
 
         }
        

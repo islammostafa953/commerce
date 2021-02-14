@@ -9,7 +9,7 @@
   <div class="collapse navbar-collapse" id="app-nav">
     <ul class="nav navbar-nav mr-auto">
     <li><a class="nav-link" href="categories.php"><?PHP  echo lang('CATE'); ?> </a> </li>
-    <li><a class="nav-link" href="#"><?PHP  echo lang('ITEMS'); ?> </a> </li>
+    <li><a class="nav-link" href="items.php"><?PHP  echo lang('ITEMS'); ?> </a> </li>
     <li><a class="nav-link" href="members.php"><?PHP  echo lang('MEMBERS'); ?> </a> </li>
     <li><a class="nav-link" href="#"><?PHP  echo lang('STATISTICS'); ?> </a> </li>
     <li><a class="nav-link" href="#"><?PHP  echo lang('LOGS'); ?> </a> </li>

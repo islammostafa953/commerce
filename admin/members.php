@@ -137,7 +137,7 @@ if (isset($_SESSION['Username']))
          }
         elseif ($do == 'Insert'){
 
-          
+           //insert member to database 
         
            if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                
@@ -212,7 +212,7 @@ if (isset($_SESSION['Username']))
                       ));
                       echo " <div class='container'>";
                       $theMsg=  "<div class='alert alert-success'>". $stmt->rowCount()   .' Add 1 record  '. "</div>";
-                      redictHome($theMsg ,'back' ,3);
+                      redictHome($theMsg );
                       echo "</div>";
                     }
                   }
@@ -327,7 +327,9 @@ if (isset($_SESSION['Username']))
                   //trick password 
                   $pass =empty($_POST['newpassword']) ? $_POST['oldpassword'] : sha1($_POST['newpassword']);
       
+               //   $chick = chickUsers("Username" , "users" , $user);
 
+                  
                   //validation form
 
                   $formErros=array();
@@ -359,16 +361,25 @@ if (isset($_SESSION['Username']))
                   }
                 if (empty($formErros))
                 {
-                  $stmt = $con->prepare("UPDATE users SET Username = ? , Email = ? , FullName = ? ,Passwords = ?   WHERE  UserID = ? ");
-                  $stmt ->execute(array($user,$email,$full,$pass,$id));   
-                  $theMsg =  "<div class='alert alert-success'>". $stmt->rowCount()   .' record upate '. "</div>"; 
-                  redictHome($theMsg,'members.php',3);
-                }
+                  
+                  // checked the name is recorded in database or not
+                  if ($chick  == 1 ){ 
+                    $theMsg = '<div class="alert alert-danger">sorry cant access this name is used </div>';
+                    redictHome( $theMsg ,'back');
+                    
+                    }else{ 
+                  
+                      $stmt = $con->prepare("UPDATE users SET Username = ? , Email = ? , FullName = ? ,Passwords = ?   WHERE  UserID = ? ");
+                      $stmt ->execute(array($user,$email,$full,$pass,$id));   
+                      $theMsg =  "<div class='alert alert-success'>". $stmt->rowCount()   .' record upate '. "</div>"; 
+                      redictHome($theMsg,'members.php',3);
+                    }               
+                  }
            } else
            {
             echo "<div class='container'>";
             $theMsg = "<div class='alert alert-danger'>sorry you can access directly</div>";
-            redictHome( $theMsg ,'back' ,3);
+            redictHome( $theMsg );
   
             echo "</div>";
              
@@ -379,7 +390,7 @@ if (isset($_SESSION['Username']))
         //----------------------------------------------------------------------------------------------
 
         elseif ($do == 'Delete'){
-          echo "<h1 class ='text-center'> Update Member</h1> ";
+          echo "<h1 class ='text-center'> Delete Member</h1> ";
           echo "<div class='container'>";
            
            $userId=isset($_GET['userId']) && is_numeric($_GET['userId']) ? intval ($_GET['userId']) : 0;
